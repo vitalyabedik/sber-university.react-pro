@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { Task } from "entities/task";
 
 export const TaskStatus = {
@@ -15,11 +15,12 @@ export const filterLabels: Record<TaskStatus, string> = {
   [TaskStatus.Incomplete]: "Незавершённые",
 };
 
-export const filterEntries: Array<{ value: TaskStatus; label: string }> =
-  Object.entries(filterLabels).map(([key, label]) => ({
-    value: key as TaskStatus,
-    label,
-  }));
+export const filterEntries: Array<{ value: TaskStatus; label: string }> = Object.entries(
+  filterLabels,
+).map(([key, label]) => ({
+  value: key as TaskStatus,
+  label,
+}));
 
 const initialTasks: Task[] = [
   { id: "1", title: "Изучить React", completed: true },
@@ -33,15 +34,19 @@ export const useTasks = (initial: Task[] = initialTasks) => {
   const [tasks, setTasks] = useState<Task[]>(initial);
   const [filter, setFilter] = useState<TaskStatus>(TaskStatus.All);
 
-  const filteredTasks = tasks.filter((t) => {
-    if (filter === TaskStatus.All) return true;
-    if (filter === TaskStatus.Completed) return t.completed;
-    return !t.completed;
-  });
+  const filteredTasks = useMemo(
+    () =>
+      tasks.filter((t) => {
+        if (filter === TaskStatus.All) return true;
+        if (filter === TaskStatus.Completed) return t.completed;
+        return !t.completed;
+      }),
+    [tasks, filter],
+  );
 
-  const removeTask = (id: string) => {
+  const removeTask = useCallback((id: string) => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
+  }, []);
 
   return {
     tasks: filteredTasks,
