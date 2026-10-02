@@ -1,0 +1,46 @@
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.count {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--muted-text, #888);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.deleteButton {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted-text, #aaa);
+  margin-top: 16px;
+}
