@@ -1,5 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
-import type { Task } from "entities/task";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useGetTasksQuery, type Task } from "entities/task";
 
 export const TaskStatus = {
   All: "all",
@@ -22,34 +22,36 @@ export const filterEntries: Array<{ value: TaskStatus; label: string }> = Object
   label,
 }));
 
-const initialTasks: Task[] = [
-  { id: "1", title: "Изучить React", completed: true },
-  { id: "2", title: "Создать компоненты", completed: false },
-  { id: "3", title: "Написать тесты", completed: false },
-  { id: "4", title: "Провести код-ревью", completed: true },
-  { id: "5", title: "Подготовить документацию", completed: false },
-];
-
-export const useTasks = (initial: Task[] = initialTasks) => {
-  const [tasks, setTasks] = useState<Task[]>(initial);
+export const useTasks = () => {
+  const [localTasks, setLocalTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<TaskStatus>(TaskStatus.All);
+
+  const { data: remoteTasks = [], isLoading } = useGetTasksQuery();
+
+  useEffect(() => {
+    if (remoteTasks.length === 0) return;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLocalTasks(remoteTasks);
+  }, [remoteTasks]);
 
   const filteredTasks = useMemo(
     () =>
-      tasks.filter((t) => {
+      localTasks.filter((t) => {
         if (filter === TaskStatus.All) return true;
         if (filter === TaskStatus.Completed) return t.completed;
         return !t.completed;
       }),
-    [tasks, filter],
+    [localTasks, filter],
   );
 
-  const removeTask = useCallback((id: string) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
+  const removeTask = useCallback((id: number) => {
+    setLocalTasks((prev) => prev.filter((task) => task.id !== id));
   }, []);
 
   return {
     tasks: filteredTasks,
+    isLoading,
     filter,
     setFilter,
     removeTask,
