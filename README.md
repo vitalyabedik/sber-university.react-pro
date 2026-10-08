@@ -17,9 +17,9 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
 
@@ -34,42 +34,70 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
-
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
-
+]);
 ```
+
+# Профилирование производительности — React DevTools Profiler
+
+## Что делалось
+
+Запущен React DevTools Profiler, произведены интеракции: переключение фильтров (All → Completed → Incomplete → All), удаление пары задач. Запись остановлена.
+
+## Наблюдения
+
+### 1. `TaskCard` — обернут в `React.memo`
+
+**Что улучшили:** Без memo при любом state-изменении ререндерились все карточки. С memo перерисовываются только те, props которых реально изменились.
+
+---
+
+### 2. `filteredTasks` в хуке `useTasks` — мемоизирован через `useMemo`
+
+**Что улучшили:** Фильтрация массива вызывалась при каждом рендере, создавая новый объект массива. `useMemo` пересчитывает фильтр только при изменении `tasks` или `filter`.
+
+---
+
+### 3. `removeTask` в хуке `useTasks` — стабилизирована через `useCallback`
+
+**Что улучшили:** Без useCallback ссылка на функцию менялась при каждом рендере, что вызывало цепную реакцию: обновился хук → обновился `TaskList` → обновились все `TaskCard`. `useCallback` удерживает стабильную ссылку.
+
+## Скриншот Profiler
+
+> **Комментарий:** На скриншоте Flamegraph видно, что `TaskCard` отображается узкими зелёными полосами — `React.memo` пропускает рендер при неизменных props. `useMemo` для `filteredTasks` и `useCallback` для `removeTask` не создают лишних блоков — ссылки стабильны между интеракциями. При удалении задачи перерисовывается только удаляемая карточка и её родитель `<li>`, остальные компоненты не затрагиваются.
+
+![alt text](profiler.png)

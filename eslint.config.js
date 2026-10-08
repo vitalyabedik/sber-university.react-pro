@@ -8,6 +8,10 @@ import tsParser from "@typescript-eslint/parser";
 import prettier from "eslint-config-prettier";
 
 export default [
+  {
+    ignores: ["dist/**", "node_modules/**", "eslint.config.js", "vite.config.ts"],
+  },
+
   js.configs.recommended,
   prettier,
 
@@ -19,7 +23,7 @@ export default [
       ecmaVersion: 2020,
       sourceType: "module",
       parserOptions: {
-        project: "./tsconfig.json",
+        project: "./tsconfig.app.json",
       },
     },
 
@@ -34,6 +38,12 @@ export default [
     settings: {
       react: {
         version: "detect",
+      },
+
+      "import/resolver": {
+        typescript: {
+          project: "./tsconfig.app.json",
+        },
       },
 
       "boundaries/elements": [
@@ -52,17 +62,44 @@ export default [
       ...jsxA11y.configs.recommended.rules,
       ...importPlugin.configs.recommended.rules,
 
-      "boundaries/element-types": [
+      "react/react-in-jsx-scope": "off",
+      "no-undef": "off",
+      "no-unused-vars": "off",
+      "no-redeclare": "off",
+      "react/display-name": "off",
+      "boundaries/dependencies": [
         "error",
         {
           default: "disallow",
-          rules: [
-            { from: "features", allow: ["shared", "entities"] },
-            { from: "entities", allow: ["shared"] },
-            { from: "widgets", allow: ["shared", "features", "entities"] },
+
+          policies: [
             {
-              from: "pages",
-              allow: ["widgets", "features", "entities", "shared"],
+              from: { element: { type: "features" } },
+              allow: [
+                { to: { element: { type: "shared" } } },
+                { to: { element: { type: "entities" } } },
+              ],
+            },
+            {
+              from: { element: { type: "entities" } },
+              allow: [{ to: { element: { type: "shared" } } }],
+            },
+            {
+              from: { element: { type: "widgets" } },
+              allow: [
+                { to: { element: { type: "shared" } } },
+                { to: { element: { type: "features" } } },
+                { to: { element: { type: "entities" } } },
+              ],
+            },
+            {
+              from: { element: { type: "pages" } },
+              allow: [
+                { to: { element: { type: "widgets" } } },
+                { to: { element: { type: "features" } } },
+                { to: { element: { type: "entities" } } },
+                { to: { element: { type: "shared" } } },
+              ],
             },
           ],
         },
