@@ -9,7 +9,7 @@ type Props = {
   tasks: Task[];
   filter: TaskStatus;
   setFilter: (f: TaskStatus) => void;
-  removeTask: (id: string) => void;
+  removeTask: (id: number) => void;
 };
 
 export const TaskList = ({ tasks, filter, setFilter, removeTask }: Props) => {
@@ -30,9 +30,7 @@ export const TaskList = ({ tasks, filter, setFilter, removeTask }: Props) => {
       </div>
 
       {activeFilter && (
-        <span className={styles.count}>
-          Показано задач с фильтром «{filterLabels[filter]}»
-        </span>
+        <span className={styles.count}>Показано задач с фильтром «{filterLabels[filter]}»</span>
       )}
 
       {tasks.length === 0 ? (
