@@ -6,7 +6,7 @@ const linkSchema = z.object({
 
 export const registerSchema = z
   .object({
-    username: z.string().min(1, "Имя обязательно"),
+    name: z.string().min(1, "Имя обязательно"),
     email: z.string().email("Некорректный email"),
     password: z.string().min(6, "Пароль — минимум 6 символов"),
     confirmPassword: z.string().min(1, "Подтвердите пароль"),

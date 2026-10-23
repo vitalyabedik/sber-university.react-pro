@@ -1,10 +1,10 @@
-import { RegisterForm } from "features/registerForm";
-import { SubscribeWizard } from "features/registerForm/ui/SubscribeWizard";
+import { RegisterForm, SubscribeWizard } from "features/registerForm";
+import { Page } from "shared/ui/Page";
 import styles from "./RegisterPage.module.css";
 
 export const RegisterPage = () => (
-  <div className={styles.container}>
+  <Page className={styles.content}>
     <RegisterForm />
     <SubscribeWizard />
-  </div>
+  </Page>
 );
