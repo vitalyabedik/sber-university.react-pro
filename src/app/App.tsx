@@ -1,15 +1,7 @@
-// import { TaskPage } from "pages/tasks";
-import { RefExamplesPage } from "pages/refExamples";
+import { AppRoutes } from "./routes";
+import { withProviders } from "./providers";
 import "./App.css";
 
-function App() {
-  return (
-    <div>
-      {/* <RegisterPage /> */}
-      {/* <TaskPage /> */}
-      <RefExamplesPage />
-    </div>
-  );
-}
+const App = withProviders(AppRoutes);
 
 export default App;
