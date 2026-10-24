@@ -74,6 +74,10 @@ export default [
 
           policies: [
             {
+              from: { element: { type: "shared" } },
+              allow: [{ to: { element: { type: "shared" } } }],
+            },
+            {
               from: { element: { type: "features" } },
               allow: [
                 { to: { element: { type: "shared" } } },
@@ -96,6 +100,16 @@ export default [
               from: { element: { type: "pages" } },
               allow: [
                 { to: { element: { type: "widgets" } } },
+                { to: { element: { type: "features" } } },
+                { to: { element: { type: "entities" } } },
+                { to: { element: { type: "shared" } } },
+              ],
+            },
+            {
+              from: { element: { type: "app" } },
+              allow: [
+                { to: { element: { type: "widgets" } } },
+                { to: { element: { type: "pages" } } },
                 { to: { element: { type: "features" } } },
                 { to: { element: { type: "entities" } } },
                 { to: { element: { type: "shared" } } },

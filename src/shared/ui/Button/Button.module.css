@@ -13,20 +13,22 @@
   background: var(--button-hover-bg, #f0f0f0);
 }
 
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .button.primary {
   background: var(--primary-color, #4f46e5);
   color: #fff;
   border-color: var(--primary-color, #4f46e5);
 }
 
-.button.primary:hover {
+.button.primary:hover:not(:disabled) {
   background: var(--primary-hover-bg, #4338ca);
 }
 
-.button.danger {
-  background: transparent;
-  border-color: transparent;
-  color: var(--muted-text, #aaa);
+.button.compact.danger {
   font-size: 14px;
   padding: 4px;
   width: 22px;
@@ -34,9 +36,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted-text, #aaa);
 }
 
-.button.danger:hover {
+.button.compact.danger:hover:not(:disabled) {
   background: #fee2e2;
   color: #dc2626;
+}
+
+.button.block {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
 }

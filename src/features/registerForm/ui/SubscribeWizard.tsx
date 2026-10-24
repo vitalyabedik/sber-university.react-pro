@@ -9,7 +9,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 async function subscribeAction(_state: State, formData: FormData): Promise<State> {
   await new Promise((r) => setTimeout(r, 800));
-  const email = String(formData.get("email") ?? "");
+  const email = String(formData.get("email") || "");
   if (!EMAIL_RE.test(email)) {
     return { success: false, error: "Укажите корректный email" };
   }
