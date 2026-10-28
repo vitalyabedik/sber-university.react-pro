@@ -1,0 +1,43 @@
+{
+  "name": "build-hw",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:prod",
+    "build:prod": "tsx configs/esbuild.app.config.ts && tsx configs/esbuild.lib.config.ts",
+    "build:dev": "tsx configs/esbuild.app.config.ts --dev",
+    "build:app": "tsx configs/esbuild.app.config.ts",
+    "build:lib": "tsx configs/esbuild.lib.config.ts",
+    "build:lib:dev": "tsx configs/esbuild.lib.config.ts --dev",
+    "lint": "eslint .",
+    "build:lib:swc": "tsx configs/swc.lib.run.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@eslint-react/eslint-plugin": "^5.23.3",
+    "@eslint/js": "^9.0.0",
+    "@swc/cli": "^0.7.9",
+    "@swc/core": "^1.16.20",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-boundaries": "^7.2.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.69.0"
+  }
+}
