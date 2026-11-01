@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Build HW — esbuild</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 0 auto;
+        max-width: 640px;
+        padding: 24px;
+      }
+      .nav {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .product-list {
+        list-style: none;
+        padding: 0;
+      }
+      .product {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .summary {
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- путь тот же, что entryNames в configs/esbuild.app.config.ts -->
+    <script type="module" src="dist/app.js"></script>
+  </body>
+</html>
