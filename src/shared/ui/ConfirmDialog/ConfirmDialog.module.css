@@ -1,0 +1,88 @@
+/* Подложка перехватывает клики: клик мимо окна закрывает диалог */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(17, 24, 39, 0.45);
+}
+
+/* Окно описывает свои визуальные свойства само: тема приходит классом, а не наследованием от страницы */
+.dialog {
+  box-sizing: border-box;
+  width: min(420px, 100%);
+  padding: 24px;
+  border-radius: 12px;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.dark {
+  background: #1f2430;
+  color: #f8fafc;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+}
+
+.light {
+  background: #ffffff;
+  color: #1f2937;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.25);
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.description {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.button {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.confirm {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.confirm:hover {
+  background: #b91c1c;
+}
+
+.cancel {
+  background: transparent;
+  border-color: #9ca3af;
+  color: inherit;
+}
+
+.cancel:hover {
+  border-color: #6b7280;
+}
