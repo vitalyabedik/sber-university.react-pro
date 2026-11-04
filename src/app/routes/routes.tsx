@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { Navigate } from "react-router-dom";
 import { LoginPage, ProfilePage, ProtectedRoute, PublicPage } from "features/authRouting";
 import { ROUTES } from "shared/config/routes";
+import { React19ExamplesPage } from "pages/react19Examples";
 import { RegisterPage } from "pages/register";
 import { PortalShowcase } from "pages/portal-showcase";
 
@@ -18,5 +19,6 @@ export const routeConfig: RouteConfig[] = [
   { path: ROUTES.register, element: RegisterPage },
   { path: ROUTES.profile, element: ProfilePage, guard: ProtectedRoute },
   { path: ROUTES.portalShowcase, element: PortalShowcase },
+  { path: ROUTES.react19Examples, element: React19ExamplesPage },
   { path: ROUTES.notFound, element: () => <Navigate to={ROUTES.public} replace /> },
 ];
