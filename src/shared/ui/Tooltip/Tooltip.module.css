@@ -1,0 +1,114 @@
+/* Точка монтирования портала Tooltip (#tooltip-root): клики проходят сквозь слой к странице */
+:global(#tooltip-root) {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/*
+  Изоляция стилей: подсказка рендерится вне дерева якоря, поэтому не наследует стили родителя.
+  Все визуальные свойства объявлены здесь, собственные значения якоря внутрь не попадают.
+*/
+.tooltip {
+  --tooltip-bg: #1f2430;
+  --tooltip-color: #f8fafc;
+  --tooltip-border: #1f2430;
+
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+  box-sizing: border-box;
+  max-width: 260px;
+  padding: 6px 10px;
+  border: 1px solid var(--tooltip-border);
+  border-radius: 8px;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-color);
+
+  /* Сброс наследуемых текстовых свойств, которые мог бы принести якорь */
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.4;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-spacing: normal;
+
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
+}
+
+/* Тема из контекста: класс приходит из useTheme, значения токенов заданы в модуле */
+.tooltip.light {
+  --tooltip-bg: #ffffff;
+  --tooltip-color: #1f2937;
+  --tooltip-border: #d1d5db;
+}
+
+/* Кликабельная подсказка: слой остаётся сквозным, клики принимает только сам контент */
+.tooltip.interactive {
+  pointer-events: auto;
+}
+
+.tooltip.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--tooltip-bg);
+  border: 1px solid var(--tooltip-border);
+  transform: rotate(45deg);
+}
+
+.arrowTop {
+  left: 50%;
+  bottom: -5px;
+  margin-left: -4px;
+  border-left: none;
+  border-top: none;
+}
+
+.arrowBottom {
+  left: 50%;
+  top: -5px;
+  margin-left: -4px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.arrowLeft {
+  top: 50%;
+  right: -5px;
+  margin-top: -4px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.arrowRight {
+  top: 50%;
+  left: -5px;
+  margin-top: -4px;
+  border-right: none;
+  border-top: none;
+}

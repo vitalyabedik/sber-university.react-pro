@@ -1,0 +1,112 @@
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.title {
+  margin: 0 0 24px;
+  font-size: 28px;
+}
+
+.section {
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.subtitle {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.text {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.tooltips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.chip {
+  padding: 8px 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  background: #f9fafb;
+  color: #1f2937;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.chip:hover {
+  background: #eef2ff;
+  border-color: #4f46e5;
+}
+
+.danger {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.danger:hover {
+  background: #fecaca;
+  border-color: #dc2626;
+}
+
+.parentZone {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px dashed #9ca3af;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.counter {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.tooltipButton {
+  padding: 4px 8px;
+  border: 1px solid currentcolor;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.list {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+.listItem {
+  margin-bottom: 4px;
+}
+
+.result {
+  margin: 12px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
